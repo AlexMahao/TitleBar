@@ -224,6 +224,7 @@ public class TitleBar extends RelativeLayout {
 
             mRightType = ta.getInteger(R.styleable.TitleBar_rightType,TYPE_GONE);
             mRightText = ta.getString(R.styleable.TitleBar_rightText);
+
         }
     }
 
@@ -233,12 +234,8 @@ public class TitleBar extends RelativeLayout {
      */
     public abstract class TitleBarClickListener{
         public  abstract  void onLeftClick();
-        public void onCenterClick(){
+        public void onCenterClick(){}
 
-        }
-
-        public void onRightClick(){
-
-        };
+        public void onRightClick(){}
     }
 }
