@@ -13,12 +13,12 @@ import android.widget.TextView;
 
 /**
  * 自定义标题栏
- * <p/>
+ * <p>
  * 默认情况， 左侧返回按钮，显示返回
  * 中侧标题
  * 右侧不显示
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * 1,左侧：返回按钮    自定义按钮 ， 没有按钮
  * 2，中： 标题栏  无
  * 3，右侧：自定义按钮 无
@@ -33,15 +33,15 @@ public class TitleBar extends RelativeLayout {
 
     private int mLeftType = TYPE_BACK;
     private String mLeftText = "返回";
-    private Drawable mLeftImage ;
+    private Drawable mLeftImage;
 
     private TextView mLeftTextView;
     private ImageView mLeftImageView;
     private LinearLayout mLeftLinearLayout;
 
 
-    private String mCenterText ="标题";
-    private int mCenterType= TYPE_CUSTOM_MENU;
+    private String mCenterText = "标题";
+    private int mCenterType = TYPE_CUSTOM_MENU;
 
     private TextView mCenterTextView;
     private LinearLayout mCenterLinearLayout;
@@ -69,57 +69,67 @@ public class TitleBar extends RelativeLayout {
 
         inflate(context, R.layout.widget_titlebar, this);
 
-        initView();
+
 
 
         initAttrs(context, attrs);
+
+        initView();
 
         loadView();
 
         initClick();
     }
 
+    /**
+     * 设置左右菜单的监听
+     */
     private void initClick() {
         mLeftLinearLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTitleBarClickListener.onLeftClick();
+                if (mTitleBarClickListener != null) {
+                    mTitleBarClickListener.onLeftClick();
+                }
             }
         });
 
         mCenterLinearLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTitleBarClickListener.onCenterClick();
+                if (mTitleBarClickListener != null) {
+                    mTitleBarClickListener.onCenterClick();
+                }
             }
         });
 
         mRightLinearLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTitleBarClickListener.onRightClick();
+                if (mTitleBarClickListener != null) {
+                    mTitleBarClickListener.onRightClick();
+                }
             }
         });
     }
 
-    public void addLeftView(View view){
+    public void addLeftView(View view) {
         mLeftLinearLayout.removeAllViews();
         mLeftLinearLayout.addView(view);
     }
 
-    public void addCenterView(View view){
+    public void addCenterView(View view) {
         mCenterLinearLayout.removeAllViews();
         mCenterLinearLayout.addView(view);
     }
 
 
-    public void addRightView(View view){
+    public void addRightView(View view) {
         mRightLinearLayout.removeAllViews();
         mRightLinearLayout.addView(view);
     }
 
     /**
-     *
      * @param mTitleBarClickListener
      */
     public void setTitleBarClickListener(TitleBarClickListener mTitleBarClickListener) {
@@ -130,7 +140,7 @@ public class TitleBar extends RelativeLayout {
      * 加载默认视图
      */
     private void loadView() {
-        if(mLeftType==TYPE_BACK){
+        if (mLeftType == TYPE_BACK) {
             mLeftText = "返回";
             mLeftTextView.setVisibility(View.VISIBLE);
             mLeftTextView.setText(mLeftText);
@@ -138,54 +148,52 @@ public class TitleBar extends RelativeLayout {
             mLeftImageView.setImageResource(R.mipmap.back_1);
             mLeftImageView.setVisibility(View.VISIBLE);
 
-        }else if(mLeftType==TYPE_CUSTOM_MENU){
-            if(mLeftImage==null){
+        } else if (mLeftType == TYPE_CUSTOM_MENU) {
+            if (mLeftImage == null) {
                 mLeftImageView.setVisibility(View.GONE);
 
-            }else{
+            } else {
                 mLeftImageView.setVisibility(View.VISIBLE);
                 mLeftImageView.setImageDrawable(mLeftImage);
             }
 
-            if(!TextUtils.isEmpty(mLeftText)){
+            if (!TextUtils.isEmpty(mLeftText)) {
                 mLeftTextView.setVisibility(View.VISIBLE);
                 mLeftTextView.setText(mLeftText);
-            }else{
+            } else {
                 mLeftTextView.setVisibility(View.GONE);
             }
 
-        }else if(mLeftType==TYPE_GONE){
+        } else if (mLeftType == TYPE_GONE) {
             mLeftTextView.setVisibility(View.GONE);
             mLeftImageView.setVisibility(View.GONE);
         }
 
 
-        if(mCenterType == TYPE_CUSTOM_MENU){
-            if(!TextUtils.isEmpty(mCenterText)){
+        if (mCenterType == TYPE_CUSTOM_MENU) {
+            if (!TextUtils.isEmpty(mCenterText)) {
                 mCenterTextView.setVisibility(View.VISIBLE);
                 mCenterTextView.setText(mCenterText);
-            }else{
+            } else {
                 mCenterTextView.setVisibility(View.GONE);
             }
-        }else if(mCenterType==TYPE_GONE){
+        } else if (mCenterType == TYPE_GONE) {
             mCenterTextView.setVisibility(View.GONE);
         }
 
 
-        if(mRightType == TYPE_CUSTOM_MENU){
-            if(!TextUtils.isEmpty(mRightText)){
+        if (mRightType == TYPE_CUSTOM_MENU) {
+            if (!TextUtils.isEmpty(mRightText)) {
                 mRightTextView.setVisibility(View.VISIBLE);
                 mRightTextView.setText(mRightText);
-            }else{
+            } else {
                 mRightTextView.setVisibility(View.GONE);
             }
-        }else if(mRightType==TYPE_GONE){
+        } else if (mRightType == TYPE_GONE) {
             mRightTextView.setVisibility(View.GONE);
         }
 
     }
-
-
 
 
     /**
@@ -215,14 +223,14 @@ public class TitleBar extends RelativeLayout {
 
             mLeftText = ta.getString(R.styleable.TitleBar_leftText);
 
-            mLeftType = ta.getInteger(R.styleable.TitleBar_leftType,TYPE_BACK);
+            mLeftType = ta.getInteger(R.styleable.TitleBar_leftType, TYPE_BACK);
 
             mLeftImage = ta.getDrawable(R.styleable.TitleBar_leftImage);
 
-            mCenterType = ta.getInteger(R.styleable.TitleBar_centerType,TYPE_CUSTOM_MENU);
+            mCenterType = ta.getInteger(R.styleable.TitleBar_centerType, TYPE_CUSTOM_MENU);
             mCenterText = ta.getString(R.styleable.TitleBar_centerText);
 
-            mRightType = ta.getInteger(R.styleable.TitleBar_rightType,TYPE_GONE);
+            mRightType = ta.getInteger(R.styleable.TitleBar_rightType, TYPE_GONE);
             mRightText = ta.getString(R.styleable.TitleBar_rightText);
 
         }
@@ -232,10 +240,13 @@ public class TitleBar extends RelativeLayout {
     /**
      * 监听回调事件
      */
-    public abstract class TitleBarClickListener{
-        public  abstract  void onLeftClick();
-        public void onCenterClick(){}
+    public static abstract class TitleBarClickListener {
+        public abstract void onLeftClick();
 
-        public void onRightClick(){}
+        public void onCenterClick() {
+        }
+
+        public void onRightClick() {
+        }
     }
 }

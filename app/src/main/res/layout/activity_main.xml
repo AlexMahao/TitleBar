@@ -7,13 +7,25 @@
     android:layout_height="match_parent">
 
     <mahao.alex.titlebar.TitleBar
+        android:id="@+id/titlebar1"
         app:leftType="back"
-        app:leftText="自定义"
-        app:centerType="customMenu"
-        app:centerText="自定义中"
+        app:centerType="gone"
         app:rightType="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 
+
+    <mahao.alex.titlebar.TitleBar
+        android:id="@+id/titlebar2"
+        android:layout_marginTop="40dp"
+        app:leftType="customMenu"
+        app:leftImage="@mipmap/ic_launcher"
+        app:leftText="自定义"
+        app:centerType="customMenu"
+        app:centerText="自定义中"
+        app:rightType="customMenu"
+        app:rightText="右菜单"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
